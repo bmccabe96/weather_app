@@ -29,7 +29,9 @@ const processCurrentWeatherData = async (data) => {
       },
     formatter = new Intl.DateTimeFormat([], options);
     let time = formatter.format(new Date());
-    
+    function titleCase(string){
+        return string[0].toUpperCase() + string.slice(1).toLowerCase();
+    }
     return {
         'temp': Math.round((data.current.temp - 273)*10)/10,
         'feels_like': Math.round((data.current.feels_like - 273)*10)/10,
@@ -37,7 +39,7 @@ const processCurrentWeatherData = async (data) => {
         'wind_speed': data.current.wind_speed,
         'uvi': data.current.uvi,
         'weather_main': data.current.weather[0].main,
-        'weather_desc': data.current.weather[0].description,
+        'weather_desc': titleCase(data.current.weather[0].description),
         'icon': await getWeatherIconURL(data.current.weather[0].icon),
         'timezone': data.timezone,
         'date': time,
