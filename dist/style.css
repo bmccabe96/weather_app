@@ -1,0 +1,36 @@
+html { 
+    background: url("background_image.jpeg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+main {
+      display: flex;
+      justify-content: space-between;
+}
+
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.search-box-input {
+    background: transparent;
+    border-bottom: 2px solid white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    color: white;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1;
+}
