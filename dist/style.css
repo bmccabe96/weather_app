@@ -2,7 +2,7 @@
     --text-color: white;
     --font-large: 3.5rem;
     --font-med: 2rem;
-    --font-small: 1rem;
+    --font-small: 0.8rem;
 }
 
 html { 
@@ -20,15 +20,33 @@ main {
 }
 
 .weather-main {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     color: var(--text-color);
+    height: 350px;
 }
 .weather-main .weather-description{
     font-size: var(--font-large);
 }
-.weather-main .temp {
+.weather-main .temp,
+.weather-main .city {
     font-size: var(--font-med);
 }
-
+.convert{
+    width: fit-content;
+    border: 2px solid white;
+    border-radius: 2px;
+    cursor: pointer;
+    padding: 1px;
+    font-size: var(--font-small);
+}
+.convert:active{
+    transform: scale(0.9,0.9);
+}
+.date {
+    font-size: var(--font-small);
+}
 .search-box {
     display: flex;
     width: fit-content;
@@ -62,7 +80,10 @@ input:focus, textarea:focus, select:focus{
     color: white;
     opacity: 1;
 }
-
+.error-message {
+    color: red;
+    font-size: var(--font-small);
+}
 .hidden {
     display: none;
 }

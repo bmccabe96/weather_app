@@ -1,19 +1,40 @@
 import { getLatLon, getOneCallWeatherData, processCurrentWeatherData } from "./api";
-import { fillWeatherInfoUI } from "./ui";
+import { fillErrorMessage, fillWeatherInfoUI } from "./ui";
+import { convertUnits } from "./utils";
 
-async function startingData() {
-    const initialCity = 'new york';
-    const initialLatLon = await getLatLon(initialCity);
-    const initialData = await getOneCallWeatherData(initialLatLon.lat, initialLatLon.lon);
-    const initialDataClean = await processCurrentWeatherData(initialData);
-    fillWeatherInfoUI(initialDataClean);
+async function getData(city) {
+    const latLon = await getLatLon(city);
+    const data = await getOneCallWeatherData(latLon.lat, latLon.lon);
+    return await processCurrentWeatherData(data, city);
 }
 
 async function main() {
-    startingData();
+    let city = 'new york'; //initial city
+    let data = await getData(city);
+    fillWeatherInfoUI(data);
+    const convert = document.querySelector('.convert');
+    convert.addEventListener('click', () => {
+        data = convertUnits(data);
+        fillWeatherInfoUI(data);
+    });
     const search = document.querySelector('.search');
+    const searchInput = document.querySelector('.search-box-input');
     search.addEventListener('click', async function() {
-        console.log("blah");
+        try {
+            let isFaren = false;
+            if (data.temp.includes('F')){
+                isFaren = true;
+            }
+            city = searchInput.value;
+            data = await getData(city);
+            if (isFaren) {
+                data = convertUnits(data);
+            }
+            fillWeatherInfoUI(data);
+        } catch (error) {
+            fillErrorMessage();
+            console.log("YOYO" + error);
+        }
     });
 }
 

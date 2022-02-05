@@ -13,11 +13,15 @@ const getLatLon = async (city) => {
 };
 
 const getWeatherIconURL = async (icon) => {
-    const response = await fetch(`http://openweathermap.org/img/wn/${icon}@2x.png`)
-    return response.url;
+    try {
+        const response = await fetch(`http://openweathermap.org/img/wn/${icon}@2x.png`);
+        return response.url;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-const processCurrentWeatherData = async (data) => {
+const processCurrentWeatherData = async (data, city) => {
     let options = {
         timeZone: data.timezone,
         year: 'numeric',
@@ -29,19 +33,24 @@ const processCurrentWeatherData = async (data) => {
       },
     formatter = new Intl.DateTimeFormat([], options);
     let time = formatter.format(new Date());
-    function titleCase(string){
-        return string[0].toUpperCase() + string.slice(1).toLowerCase();
-    }
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        }
+        return splitStr.join(' '); 
+     }
+     
     return {
-        'temp': Math.round((data.current.temp - 273)*10)/10,
-        'feels_like': Math.round((data.current.feels_like - 273)*10)/10,
+        'temp': Math.round((data.current.temp - 273)*10)/10 + ' deg C',
+        'feels_like': Math.round((data.current.feels_like - 273)*10)/10 + ' deg C',
         'humidity': data.current.humidity,
-        'wind_speed': data.current.wind_speed,
+        'wind_speed': data.current.wind_speed + ' km/h', 
         'uvi': data.current.uvi,
         'weather_main': data.current.weather[0].main,
         'weather_desc': titleCase(data.current.weather[0].description),
         'icon': await getWeatherIconURL(data.current.weather[0].icon),
-        'timezone': data.timezone,
+        'city': titleCase(city),
         'date': time,
     };
 };
