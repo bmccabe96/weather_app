@@ -11,11 +11,11 @@
 <body>
     <main>
         <div class="weather-main">
-            <div class="weather-description"></div>
-            <div class="city"></div>
-            <div class="convert">Convert F/C</div>
-            <div class="date"></div>
-            <div class="temp"></div>
+            <div class="weather-description primary"></div>
+            <div class="city secondary"></div>
+            <div class="convert tertiary">Convert F/C</div>
+            <div class="date tertiary"></div>
+            <div class="temp secondary"></div>
             <div class="icon">
                 <img src="" alt="" class="icon-img">
             </div>
@@ -26,11 +26,26 @@
             <div class="error-message hidden">Please enter a valid city</div>
         </div>
         <div class="weather-details-container">
-
+            <div>
+                <span>Feels like:</span>
+                <div class="feels-like secondary"></div>
+            </div>
+            <div>
+                <span>Humidity:</span>
+                <div class="humidity secondary"></div>
+            </div>
+            <div>
+                <span>Wind speed:</span>
+                <div class="wind-speed secondary"></div>
+            </div>
+            <div>
+                <span>UVI:</span>
+                <div class="uvi secondary"></div>
+            </div>
         </div>
     </main>
     <div class="forecast">
-
+       
     </div>
 </body>
 </html>

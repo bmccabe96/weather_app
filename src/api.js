@@ -21,6 +21,25 @@ const getWeatherIconURL = async (icon) => {
     }
 };
 
+const extractForeCastData = async (data) => {
+    let dailyHigh = [];
+    let dailyLow = [];
+    let dailyIcon = [];
+    for (let day of data.daily) {
+        dailyHigh.push((Math.round((day.temp.max - 273)*10)/10) + ' C');
+        dailyLow.push((Math.round((day.temp.min - 273)*10)/10) + ' C');
+        dailyIcon.push(await getWeatherIconURL(day.weather[0].icon));
+    }
+    dailyHigh.shift();
+    dailyLow.shift();
+    dailyIcon.shift();
+    return {
+        'highs': dailyHigh,
+        'lows': dailyLow,
+        'icons': dailyIcon
+    }
+};
+
 const processCurrentWeatherData = async (data, city) => {
     let options = {
         timeZone: data.timezone,
@@ -40,11 +59,11 @@ const processCurrentWeatherData = async (data, city) => {
         }
         return splitStr.join(' '); 
      }
-     
+    let foreCastData = await extractForeCastData(data);
     return {
-        'temp': Math.round((data.current.temp - 273)*10)/10 + ' deg C',
-        'feels_like': Math.round((data.current.feels_like - 273)*10)/10 + ' deg C',
-        'humidity': data.current.humidity,
+        'temp': Math.round((data.current.temp - 273)*10)/10 + ' C',
+        'feels_like': Math.round((data.current.feels_like - 273)*10)/10 + ' C',
+        'humidity': data.current.humidity + '%',
         'wind_speed': data.current.wind_speed + ' km/h', 
         'uvi': data.current.uvi,
         'weather_main': data.current.weather[0].main,
@@ -52,6 +71,9 @@ const processCurrentWeatherData = async (data, city) => {
         'icon': await getWeatherIconURL(data.current.weather[0].icon),
         'city': titleCase(city),
         'date': time,
+        'daily_highs': foreCastData.highs,
+        'daily_lows': foreCastData.lows,
+        'daily_icons': foreCastData.icons,
     };
 };
 

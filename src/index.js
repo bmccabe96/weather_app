@@ -1,5 +1,5 @@
 import { getLatLon, getOneCallWeatherData, processCurrentWeatherData } from "./api";
-import { fillErrorMessage, fillWeatherInfoUI } from "./ui";
+import { fillErrorMessage, fillWeatherInfoUI, initializeWeatherForecast, fillWeatherForecast } from "./ui";
 import { convertUnits } from "./utils";
 
 async function getData(city) {
@@ -12,10 +12,12 @@ async function main() {
     let city = 'new york'; //initial city
     let data = await getData(city);
     fillWeatherInfoUI(data);
+    initializeWeatherForecast(data);
     const convert = document.querySelector('.convert');
     convert.addEventListener('click', () => {
         data = convertUnits(data);
         fillWeatherInfoUI(data);
+        fillWeatherForecast(data);
     });
     const search = document.querySelector('.search');
     const searchInput = document.querySelector('.search-box-input');
