@@ -19,6 +19,7 @@ main {
       justify-content: space-between;
       margin-top: 30px;
       margin-bottom: 30px;
+      margin-right: 40px;
 }
 
 .weather-main {
@@ -43,7 +44,7 @@ main {
     border: 2px solid white;
     border-radius: 2px;
     cursor: pointer;
-    padding: 1px;
+    padding: 1px 15px;
 }
 .convert:active{
     transform: scale(0.9,0.9);
@@ -68,6 +69,7 @@ main {
     border: 2px solid white;
     border-radius: 2px;
     cursor: pointer;
+    padding: 1px 5px;
 }
 .search:active{
     transform: scale(0.9,0.9);
@@ -110,4 +112,7 @@ input:focus, textarea:focus, select:focus{
     flex-direction: column;
     align-items: center;
     gap: 2px;
+}
+.forecast-weekday{
+    font-weight: bold;
 }

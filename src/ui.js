@@ -20,6 +20,9 @@ const initializeWeatherForecast = (data) => {
         let day = document.createElement('div');
         day.classList.add('forecast-item');
         day.classList.add(`forward-${i+1}`);
+        let weekday = document.createElement('div');
+        weekday.classList.add('forecast-weekday');
+        weekday.textContent = data.daily_days[i];
         let high = document.createElement('div');
         high.classList.add('forecast-high');
         high.textContent = data.daily_highs[i];
@@ -32,6 +35,7 @@ const initializeWeatherForecast = (data) => {
         img.classList.add('forecast-icon');
         img.src = data.daily_icons[i];
         iconDiv.appendChild(img);
+        day.appendChild(weekday);
         day.appendChild(high);
         day.appendChild(low);
         day.appendChild(iconDiv);
@@ -43,9 +47,10 @@ const fillWeatherForecast = (data) => {
     const foreCastItems = document.querySelectorAll('.forecast-item');
     let index = 0;
     for (let item of foreCastItems) {
-        item.children[0].textContent = data.daily_highs[index]; //daily high
-        item.children[1].textContent = data.daily_lows[index]; //daily low
-        item.children[2].children[0].src = data.daily_icons[index]; //daily icon
+        item.children[0].textContent = data.daily_days[index]; //weekday
+        item.children[1].textContent = data.daily_highs[index]; //daily high
+        item.children[2].textContent = data.daily_lows[index]; //daily low
+        item.children[3].children[0].src = data.daily_icons[index]; //daily icon
         index++;
     }
 };

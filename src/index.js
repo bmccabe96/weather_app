@@ -11,6 +11,7 @@ async function getData(city) {
 async function main() {
     let city = 'new york'; //initial city
     let data = await getData(city);
+    console.log(data);
     fillWeatherInfoUI(data);
     initializeWeatherForecast(data);
     const convert = document.querySelector('.convert');
@@ -33,6 +34,7 @@ async function main() {
                 data = convertUnits(data);
             }
             fillWeatherInfoUI(data);
+            fillWeatherForecast(data);
         } catch (error) {
             fillErrorMessage();
             console.log("YOYO" + error);

@@ -25,18 +25,27 @@ const extractForeCastData = async (data) => {
     let dailyHigh = [];
     let dailyLow = [];
     let dailyIcon = [];
+    let dailyDays = [];
+    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    let index = 1;
     for (let day of data.daily) {
         dailyHigh.push((Math.round((day.temp.max - 273)*10)/10) + ' C');
         dailyLow.push((Math.round((day.temp.min - 273)*10)/10) + ' C');
         dailyIcon.push(await getWeatherIconURL(day.weather[0].icon));
+        let date = new Date();
+        date.setDate(date.getDate() + index);
+        dailyDays.push(weekday[date.getDay()]);
+        index++;
     }
     dailyHigh.shift();
     dailyLow.shift();
     dailyIcon.shift();
+    dailyDays.shift();
     return {
         'highs': dailyHigh,
         'lows': dailyLow,
-        'icons': dailyIcon
+        'icons': dailyIcon,
+        'weekdays': dailyDays,
     }
 };
 
@@ -74,6 +83,7 @@ const processCurrentWeatherData = async (data, city) => {
         'daily_highs': foreCastData.highs,
         'daily_lows': foreCastData.lows,
         'daily_icons': foreCastData.icons,
+        'daily_days': foreCastData.weekdays
     };
 };
 
