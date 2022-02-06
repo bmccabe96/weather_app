@@ -14,7 +14,7 @@ const getLatLon = async (city) => {
 
 const getWeatherIconURL = async (icon) => {
     try {
-        const response = await fetch(`http://openweathermap.org/img/wn/${icon}@2x.png`);
+        const response = await fetch(`https://openweathermap.org/img/wn/${icon}@2x.png`);
         return response.url;
     } catch (error) {
         console.log(error);
