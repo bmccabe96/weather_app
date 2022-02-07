@@ -27,7 +27,7 @@ const extractForeCastData = async (data) => {
     let dailyIcon = [];
     let dailyDays = [];
     const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    let index = 1;
+    let index = 0;
     for (let day of data.daily) {
         dailyHigh.push((Math.round((day.temp.max - 273)*10)/10) + ' C');
         dailyLow.push((Math.round((day.temp.min - 273)*10)/10) + ' C');
