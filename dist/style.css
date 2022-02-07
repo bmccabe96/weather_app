@@ -29,6 +29,7 @@ main {
     gap: 5px;
     color: var(--text-color);
     height: 350px;
+    
 }
 .primary{
     font-size: var(--font-large);
@@ -108,6 +109,7 @@ input:focus, textarea:focus, select:focus{
     font-size: var(--font-small);
 }
 .forecast-item{
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
